@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPP Command Center</title>
+
+<style>
+
+body{
+background:#000;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
+margin:0;
+}
+
+.header{
+background:#111;
+padding:15px;
+display:flex;
+justify-content:space-between;
+border-bottom:1px solid #ffb000;
+}
+
+.logo{
+color:#ffb000;
+font-size:28px;
+font-weight:bold;
+}
+
+.clock{
+color:#ffb000;
+font-size:22px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 2fr 1fr;
+gap:10px;
+padding:10px;
+}
+
+.panel{
+background:#111;
+border:1px solid #333;
+padding:10px;
+border-radius:6px;
+}
+
+.panel h2{
+color:#ffb000;
+margin-top:0;
+}
+
+.btn{
+display:block;
+background:#222;
+padding:10px;
+margin:5px 0;
+color:white;
+text-decoration:none;
+border-radius:4px;
+}
+
+.btn:hover{
+background:#333;
+}
+
+textarea{
+width:100%;
+height:200px;
+background:#000;
+color:white;
+border:1px solid #333;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+td,th{
+padding:8px;
+border-bottom:1px solid #222;
+}
+
+.green{
+color:#00ff66;
+}
+
+.red{
+color:#ff4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+CPP COMMAND CENTER
+</div>
+
+<div class="clock" id="clock">
+Loading...
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+
+<h2>CPP FREIGHT</h2>
+
+<table>
+
+<tr><td>TC1</td><td>505</td></tr>
+<tr><td>TC5</td><td>522</td></tr>
+<tr><td>TC20</td><td>79</td></tr>
+<tr><td>TC12</td><td>48</td></tr>
+<tr><td>TC14</td><td>42</td></tr>
+<tr><td>TC17</td><td>53</td></tr>
+
+</table>
+
+</div>
+
+<div class="panel">
+
+<h2>BRENT LIVE CHART</h2>
+
+<div class="tradingview-widget-container">
+<div id="tradingview_chart"></div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>QUICK LINKS</h2>
+
+<a class="btn" target="_blank" href="https://app.signalocean.com">
+Signal Ocean
+</a>
+
+<a class="btn" target="_blank" href="https://www.wsj.com">
+WSJ
+</a>
+
+<a class="btn" target="_blank" href="https://www.barrons.com">
+Barron's
+</a>
+
+<a class="btn" target="_blank" href="https://www.marketwatch.com">
+MarketWatch
+</a>
+
+<a class="btn" target="_blank" href="https://shipandbunker.com">
+Ship & Bunker
+</a>
+
+</div>
+
+<div class="panel">
+
+<h2>DIRTY FREIGHT</h2>
+
+<table>
+
+<tr><td>TD3C</td><td>295</td></tr>
+<tr><td>TD20</td><td>233</td></tr>
+<tr><td>TD22</td><td>20416</td></tr>
+
+</table>
+
+</div>
+
+<div class="panel">
+
+<h2>BROKER NOTES</h2>
+
+<textarea id="notes"></textarea>
+
+</div>
+
+<div class="panel">
+
+<h2>MORNING CHECKLIST</h2>
+
+<input type="checkbox"> Brent > 2%<br><br>
+<input type="checkbox"> EFS Move<br><br>
+<input type="checkbox"> TC5 Move<br><br>
+<input type="checkbox"> TD3C Move<br><br>
+<input type="checkbox"> Hormuz Update<br><br>
+<input type="checkbox"> Refinery Outage<br><br>
+
+</div>
+
+</div>
+
+<script>
+
+function updateClock(){
+
+const options={
+timeZone:"Asia/Singapore"
+};
+
+const now=new Date().toLocaleString(
+"en-SG",
+options
+);
+
+document.getElementById("clock").innerHTML=now;
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+const notes=document.getElementById("notes");
+
+notes.value=localStorage.getItem("brokerNotes")||"";
+
+notes.addEventListener("keyup",()=>{
+
+localStorage.setItem(
+"brokerNotes",
+notes.value
+);
+
+});
+
+</script>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+
+new TradingView.widget({
+
+width:"100%",
+height:500,
+symbol:"ICEEUR:BRN1!",
+interval:"240",
+timezone:"Asia/Singapore",
+theme:"dark",
+style:"1",
+locale:"en",
+container_id:"tradingview_chart"
+
+});
+
+</script>
+
+</body>
+</html>
