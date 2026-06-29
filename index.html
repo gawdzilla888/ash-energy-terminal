@@ -1,107 +1,931 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ash Energy Terminal</title>
+
 <style>
-body{margin:0;background:#000;color:#e6e6e6;font-family:Consolas,monospace}
-.header{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:2px solid #ff9900}
-.title{color:#ff9900;font-size:24px;font-weight:bold}
-.ribbon{display:grid;grid-template-columns:repeat(10,1fr);gap:1px;background:#333}
-.tile{background:#111;padding:8px;text-align:center}
-.label{color:#ffcc00;font-size:12px}
-.value{color:#00ff66;font-size:20px}
-.main{display:grid;grid-template-columns:18% 57% 25%;height:calc(100vh - 90px)}
-.panel{padding:10px;border-right:1px solid #333;overflow:auto}
-.box{background:#111;border:1px solid #333;padding:8px;margin-bottom:8px}
-textarea{width:100%;height:420px;background:#050505;color:#00ff66}
-.btn{display:block;background:#111;color:white;text-decoration:none;padding:10px;margin-bottom:8px;border:1px solid #444}
-.news{background:#111;padding:8px;margin-top:8px}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Consolas, Monaco, monospace;
+}
+
+body{
+background:#000;
+color:#e6e6e6;
+height:100vh;
+overflow:hidden;
+}
+
+.header{
+height:90px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+border-bottom:2px solid #ff8800;
+background:#050505;
+}
+
+.branding{
+display:flex;
+flex-direction:column;
+}
+
+.title{
+font-size:34px;
+font-weight:bold;
+color:#ff8800;
+letter-spacing:1px;
+}
+
+.subtitle{
+font-size:13px;
+color:#888;
+margin-top:4px;
+}
+
+.header-buttons{
+display:flex;
+gap:10px;
+}
+
+.header-buttons button{
+background:#111;
+color:white;
+border:1px solid #444;
+padding:10px 15px;
+cursor:pointer;
+}
+
+.header-buttons button:hover{
+background:#ff8800;
+color:black;
+}
+
+.clock-container{
+text-align:right;
+}
+
+.clock-title{
+color:#ff8800;
+font-size:14px;
+}
+
+#clock{
+font-size:32px;
+font-weight:bold;
+color:white;
+}
+
+.top-ribbon{
+height:130px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:2px;
+background:#222;
+}
+
+.market-card{
+background:#111;
+padding:10px;
+text-align:center;
+border-right:1px solid #222;
+}
+
+.market-card h3{
+color:#ff8800;
+margin-bottom:8px;
+font-size:18px;
+}
+
+.market-card small{
+display:block;
+margin-top:8px;
+color:#999;
+}
+
+.market-card input{
+width:90%;
+padding:6px;
+margin:3px 0;
+background:#000;
+color:#00ff66;
+border:1px solid #333;
+text-align:center;
+font-size:18px;
+}
+
+.main-layout{
+display:grid;
+grid-template-columns:24% 46% 30%;
+height:calc(100vh - 260px);
+}
+
+.left-panel{
+padding:10px;
+overflow-y:auto;
+border-right:1px solid #333;
+}
+
+.middle-panel{
+padding:10px;
+overflow-y:auto;
+border-right:1px solid #333;
+}
+
+.right-panel{
+padding:10px;
+overflow-y:auto;
+}
+
+.left-panel h2,
+.middle-panel h2,
+.right-panel h2{
+color:#ff8800;
+margin-bottom:10px;
+}
+
+.route-card{
+background:#111;
+border:1px solid #333;
+padding:10px;
+margin-bottom:10px;
+}
+
+.route-title{
+font-size:24px;
+font-weight:bold;
+color:#ff8800;
+margin-bottom:8px;
+}
+
+.route-card label{
+display:block;
+font-size:13px;
+color:#bbb;
+margin-top:5px;
+}
+
+.route-card input{
+width:100%;
+padding:8px;
+background:#000;
+color:white;
+border:1px solid #333;
+margin-top:2px;
+}
+
+.trend-up{
+color:#00ff66;
+font-size:24px;
+font-weight:bold;
+}
+
+.trend-down{
+color:#ff4444;
+font-size:24px;
+font-weight:bold;
+}
+
+textarea{
+width:100%;
+height:350px;
+background:#050505;
+color:#00ff66;
+border:1px solid #333;
+padding:10px;
+resize:none;
+font-size:14px;
+margin-top:10px;
+}
+
+.middle-panel button{
+padding:10px 15px;
+background:#111;
+color:white;
+border:1px solid #444;
+cursor:pointer;
+margin-bottom:10px;
+}
+
+.middle-panel button:hover{
+background:#ff8800;
+color:black;
+}
+
+.market-snapshot{
+margin-top:20px;
+padding:10px;
+border:1px solid #333;
+background:#111;
+}
+
+.market-snapshot h2{
+margin-bottom:10px;
+}
+
+#snapshot{
+line-height:1.8;
+font-size:15px;
+}
+
+.right-panel a{
+display:block;
+padding:12px;
+margin-bottom:8px;
+background:#111;
+border:1px solid #333;
+color:white;
+text-decoration:none;
+}
+
+.right-panel a:hover{
+background:#ff8800;
+color:black;
+}
+
+.news-ticker{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:40px;
+background:#111;
+border-top:2px solid #ff8800;
+display:flex;
+align-items:center;
+font-size:15px;
+color:#ff8800;
+}
+
+marquee{
+width:100%;
+}
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#111;
+}
+
+::-webkit-scrollbar-thumb{
+background:#ff8800;
+}
+
+@media(max-width:1400px){
+
+.top-ribbon{
+grid-template-columns:repeat(4,1fr);
+height:auto;
+}
+
+.main-layout{
+grid-template-columns:1fr;
+height:auto;
+}
+
+body{
+overflow:auto;
+}
+
+.news-ticker{
+position:relative;
+}
+}
+
 </style>
+
 </head>
+
 <body>
+
 <div class="header">
-<div class="title">ASH ENERGY TERMINAL</div>
-<div id="clock"></div>
+
+    <div class="branding">
+        <div class="title">ASH ENERGY TERMINAL</div>
+        <div class="subtitle">Tanker Broking Workstation</div>
+    </div>
+
+    <div class="header-buttons">
+
+        <button onclick="toggleFullscreen()">
+            Fullscreen
+        </button>
+
+        <button onclick="exportNotes()">
+            Export Notes
+        </button>
+
+        <button onclick="clearAllData()">
+            Clear Data
+        </button>
+
+    </div>
+
+    <div class="clock-container">
+
+        <div class="clock-title">
+            Singapore (GMT+8)
+        </div>
+
+        <div id="clock">
+            Loading...
+        </div>
+
+    </div>
+
 </div>
 
-<div class="ribbon">
-<div class="tile"><div class="label">WTI</div><div class="value">--</div></div>
-<div class="tile"><div class="label">BRENT</div><div class="value">--</div></div>
-<div class="tile"><div class="label">SG MGO</div><div class="value">--</div></div>
-<div class="tile"><div class="label">FUJ MGO</div><div class="value">--</div></div>
-<div class="tile"><div class="label">SG VLSFO</div><div class="value">--</div></div>
-<div class="tile"><div class="label">FUJ VLSFO</div><div class="value">--</div></div>
-<div class="tile"><div class="label">DXY</div><div class="value">--</div></div>
-<div class="tile"><div class="label">US10Y</div><div class="value">--</div></div>
-<div class="tile"><div class="label">QTUM</div><div class="value">--</div></div>
-<div class="tile"><div class="label">IVV</div><div class="value">--</div></div>
+<div class="top-ribbon">
+
+    <div class="market-card">
+        <h3>WTI</h3>
+        <input id="wti" value="77.50">
+        <small>USD/bbl</small>
+    </div>
+
+    <div class="market-card">
+        <h3>Brent</h3>
+        <input id="brent" value="81.50">
+        <small>USD/bbl</small>
+    </div>
+
+    <div class="market-card">
+        <h3>Singapore MGO</h3>
+        <input id="sgmgo" value="705">
+        <input id="sgmgochg" value="+3">
+        <small>USD/MT</small>
+    </div>
+
+    <div class="market-card">
+        <h3>Singapore VLSFO</h3>
+        <input id="sgvlsfo" value="512">
+        <input id="sgvlsfochg" value="-2">
+        <small>USD/MT</small>
+    </div>
+
+    <div class="market-card">
+        <h3>Fujairah MGO</h3>
+        <input id="fujmgo" value="689">
+        <input id="fujmgochg" value="+1">
+        <small>USD/MT</small>
+    </div>
+
+    <div class="market-card">
+        <h3>Fujairah VLSFO</h3>
+        <input id="fujvlsfo" value="495">
+        <input id="fujvlsfochg" value="-1">
+        <small>USD/MT</small>
+    </div>
+
+    <div class="market-card">
+        <h3>QTUM ETF</h3>
+        <input id="qtum" value="8.71">
+        <small>USD</small>
+    </div>
+
 </div>
 
-<div class="main">
-<div class="panel">
-<h3 style="color:#ff9900">TANKER RATES</h3>
-<div class="box">TC1: 135</div>
-<div class="box">TC5: 145</div>
-<div class="box">TC12: 188</div>
-<div class="box">TC17: 172</div>
-<div class="box">TD3C</div>
-<div class="box">TD20</div>
-<div class="box">TD22</div>
+<div class="main-layout">
+
+    <div class="left-panel">
+
+        <h2>Freight Routes</h2>
+
+        <div id="routes-container"></div>
+
+    </div>
+
+    <div class="middle-panel">
+
+        <h2>Broker Notes</h2>
+
+        <button onclick="insertTimestamp()">
+            Insert Timestamp
+        </button>
+
+        <textarea
+        id="brokerNotes"
+        placeholder="Type broker notes here..."
+        ></textarea>
+
+        <div class="market-snapshot">
+
+            <h2>Market Snapshot</h2>
+
+            <div id="snapshot"></div>
+
+        </div>
+
+    </div>
+
+    <div class="right-panel">
+
+        <h2>Quick Links</h2>
+
+        <a href="https://www.wsj.com" target="_blank">WSJ</a>
+        <a href="https://www.barrons.com" target="_blank">Barron's</a>
+        <a href="https://www.marketwatch.com" target="_blank">MarketWatch</a>
+        <a href="https://www.signalocean.com" target="_blank">SignalOcean</a>
+        <a href="https://www.interactivebrokers.com" target="_blank">IBKR</a>
+        <a href="https://www.kpler.com" target="_blank">Kpler</a>
+        <a href="https://www.vortexa.com" target="_blank">Vortexa</a>
+        <a href="https://www.tradewindsnews.com" target="_blank">TradeWinds</a>
+        <a href="https://lloydslist.com" target="_blank">Lloyd's List</a>
+        <a href="https://splash247.com" target="_blank">Splash247</a>
+
+    </div>
+
 </div>
 
-<div class="panel">
-<h3 style="color:#ff9900">BROKER NOTES</h3>
-<button onclick="insertTime()">Insert Timestamp</button>
-<button onclick="exportNotes()">Export Notes</button>
-<textarea id="notes"></textarea>
-<div class="news">
-<b>News Feed</b><br>
-Hormuz | Red Sea | OPEC+ | CPP Market | Freight Updates
-</div>
-</div>
+<div class="news-ticker">
 
-<div class="panel">
-<h3 style="color:#ff9900">QUICK LAUNCH</h3>
-<a class="btn" href="https://www.wsj.com" target="_blank">WSJ</a>
-<a class="btn" href="https://www.barrons.com" target="_blank">Barrons</a>
-<a class="btn" href="https://www.marketwatch.com" target="_blank">MarketWatch</a>
-<a class="btn" href="https://www.signalocean.com" target="_blank">SignalOcean</a>
-<a class="btn" href="https://www.interactivebrokers.com" target="_blank">IBKR</a>
-<a class="btn" href="https://www.kpler.com" target="_blank">Kpler</a>
-<a class="btn" href="https://www.vortexa.com" target="_blank">Vortexa</a>
-</div>
+    <marquee>
+
+    Hormuz Updates •
+    Red Sea Security •
+    OPEC+ •
+    CPP Market •
+    LR1 Freight •
+    LR2 Freight •
+    Clean Tanker Market
+
+    </marquee>
+
 </div>
 
 <script>
+
+/* ==========================
+   ROUTE DEFINITIONS
+========================== */
+
+const routes = [
+"TC1",
+"TC5",
+"TC6",
+"TC8",
+"TC11",
+"TC12",
+"TC14",
+"TC17",
+"TD2",
+"TD3C"
+];
+
+/* ==========================
+   BUILD ROUTE CARDS
+========================== */
+
+const container =
+document.getElementById("routes-container");
+
+routes.forEach(route => {
+
+const savedClose =
+localStorage.getItem(route+"_close") || "";
+
+const savedChange =
+localStorage.getItem(route+"_change") || "";
+
+const card =
+document.createElement("div");
+
+card.className =
+"route-card";
+
+card.innerHTML = `
+<div class="route-title">${route}</div>
+
+<label>Prev Close WS</label>
+<input
+type="text"
+id="${route}_close"
+value="${savedClose}"
+>
+
+<label>Daily Change</label>
+<input
+type="text"
+id="${route}_change"
+value="${savedChange}"
+>
+
+<div id="${route}_trend">
+—
+</div>
+`;
+
+container.appendChild(card);
+
+});
+
+/* ==========================
+   AUTO SAVE
+========================== */
+
+function saveAll(){
+
+const allInputs =
+document.querySelectorAll("input");
+
+allInputs.forEach(input=>{
+
+localStorage.setItem(
+input.id,
+input.value
+);
+
+});
+
+localStorage.setItem(
+"brokerNotes",
+document.getElementById(
+"brokerNotes"
+).value
+);
+
+updateSnapshot();
+
+}
+
+setInterval(saveAll,1000);
+
+/* ==========================
+   LOAD SAVED DATA
+========================== */
+
+window.onload = function(){
+
+document.querySelectorAll("input")
+.forEach(input=>{
+
+const saved =
+localStorage.getItem(input.id);
+
+if(saved !== null){
+
+input.value = saved;
+
+}
+
+});
+
+const notes =
+localStorage.getItem(
+"brokerNotes"
+);
+
+if(notes){
+
+document.getElementById(
+"brokerNotes"
+).value = notes;
+
+}
+
+updateSnapshot();
+
+}
+
+/* ==========================
+   SINGAPORE CLOCK
+========================== */
+
 function updateClock(){
-document.getElementById('clock').innerText =
-new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',dateStyle:'short',timeStyle:'medium'}).format(new Date());
-}
-setInterval(updateClock,1000); updateClock();
 
-const notes=document.getElementById('notes');
-notes.value=localStorage.getItem('ashNotes')||'';
-notes.addEventListener('input',()=>localStorage.setItem('ashNotes',notes.value));
+const now =
+new Date();
 
-function insertTime(){
-notes.value += "\n[" + new Date().toLocaleString() + "] ";
+const sgTime =
+new Intl.DateTimeFormat(
+'en-SG',
+{
+timeZone:'Asia/Singapore',
+year:'numeric',
+month:'2-digit',
+day:'2-digit',
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit'
 }
+).format(now);
+
+document.getElementById(
+"clock"
+).innerHTML =
+sgTime;
+
+}
+
+updateClock();
+
+setInterval(
+updateClock,
+1000
+);
+
+/* ==========================
+   TIMESTAMP
+========================== */
+
+function insertTimestamp(){
+
+const notes =
+document.getElementById(
+"brokerNotes"
+);
+
+const time =
+new Date().toLocaleString(
+'en-SG'
+);
+
+notes.value +=
+`\n\n[${time}] `;
+
+saveAll();
+
+}
+
+/* ==========================
+   EXPORT NOTES
+========================== */
 
 function exportNotes(){
-const blob=new Blob([notes.value],{type:'text/plain'});
-const a=document.createElement('a');
-a.href=URL.createObjectURL(blob);
-a.download='broker_notes.txt';
+
+const notes =
+document.getElementById(
+"brokerNotes"
+).value;
+
+const blob =
+new Blob(
+[notes],
+{
+type:"text/plain"
+}
+);
+
+const a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"broker_notes.txt";
+
 a.click();
+
 }
 
-document.addEventListener('keydown',e=>{
-if(e.altKey && e.key==='1') window.open('https://www.signalocean.com');
-if(e.altKey && e.key==='2') window.open('https://www.interactivebrokers.com');
-if(e.altKey && e.key==='3') window.open('https://www.wsj.com');
+/* ==========================
+   FULLSCREEN
+========================== */
+
+function toggleFullscreen(){
+
+if(!document.fullscreenElement){
+
+document.documentElement
+.requestFullscreen();
+
+}
+else{
+
+document.exitFullscreen();
+
+}
+
+}
+
+/* ==========================
+   CLEAR DATA
+========================== */
+
+function clearAllData(){
+
+if(
+confirm(
+"Clear all saved data?"
+)
+){
+
+localStorage.clear();
+
+location.reload();
+
+}
+
+}
+
+/* ==========================
+   TREND ARROWS
+========================== */
+
+function updateTrends(){
+
+routes.forEach(route=>{
+
+const val =
+document.getElementById(
+route+"_change"
+).value;
+
+const trend =
+document.getElementById(
+route+"_trend"
+);
+
+const num =
+parseFloat(val);
+
+if(num > 0){
+
+trend.innerHTML =
+"▲";
+
+trend.className =
+"trend-up";
+
+}
+else if(num < 0){
+
+trend.innerHTML =
+"▼";
+
+trend.className =
+"trend-down";
+
+}
+else{
+
+trend.innerHTML =
+"—";
+
+trend.className =
+"";
+
+}
+
 });
+
+}
+
+setInterval(
+updateTrends,
+1000
+);
+
+/* ==========================
+   MARKET SNAPSHOT
+========================== */
+
+function updateSnapshot(){
+
+const wti =
+document.getElementById(
+"wti"
+).value;
+
+const brent =
+document.getElementById(
+"brent"
+).value;
+
+const qtum =
+document.getElementById(
+"qtum"
+).value;
+
+const tc12 =
+document.getElementById(
+"TC12_close"
+).value;
+
+const tc17 =
+document.getElementById(
+"TC17_close"
+).value;
+
+document.getElementById(
+"snapshot"
+).innerHTML =
+
+`
+WTI: $${wti}<br>
+Brent: $${brent}<br>
+QTUM: $${qtum}<br>
+<br>
+TC12: WS ${tc12}<br>
+TC17: WS ${tc17}
+`;
+
+}
+
+/* ==========================
+   FUTURE LIVE PRICE HOOKS
+========================== */
+
+/*
+Replace URL below
+with Cloudflare Worker later
+
+Example:
+
+fetch(
+'https://your-worker.workers.dev/wti'
+)
+
+Every 60 seconds
+*/
+
+async function refreshMarkets(){
+
+try{
+
+console.log(
+"Market refresh hook ready"
+);
+
+}
+catch(err){
+
+console.log(err);
+
+}
+
+}
+
+setInterval(
+refreshMarkets,
+60000
+);
+
+/* ==========================
+   SHORTCUT KEYS
+========================== */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+if(
+e.altKey &&
+e.key==="1"
+){
+
+window.open(
+"https://www.signalocean.com"
+);
+
+}
+
+if(
+e.altKey &&
+e.key==="2"
+){
+
+window.open(
+"https://www.interactivebrokers.com"
+);
+
+}
+
+if(
+e.altKey &&
+e.key==="3"
+){
+
+window.open(
+"https://www.wsj.com"
+);
+
+}
+
+if(
+e.altKey &&
+e.key==="n"
+){
+
+insertTimestamp();
+
+}
+
+}
+);
+
 </script>
+
 </body>
 </html>
