@@ -3,62 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CPP Command Center</title>
+
+<title>Ash Energy Terminal</title>
 
 <style>
 
-body{
-background:#000;
-color:white;
-font-family:Arial,Helvetica,sans-serif;
+:root{
+--bg:#000000;
+--panel:#111111;
+--border:#2b2b2b;
+--amber:#ffb000;
+--green:#00ff66;
+--red:#ff4444;
+--white:#ffffff;
+}
+
+*{
+box-sizing:border-box;
 margin:0;
+padding:0;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:var(--bg);
+color:var(--white);
+padding:10px;
 }
 
 .header{
-background:#111;
-padding:15px;
 display:flex;
 justify-content:space-between;
-border-bottom:1px solid #ffb000;
+align-items:center;
+padding:15px;
+background:#050505;
+border:1px solid var(--amber);
+margin-bottom:10px;
 }
 
 .logo{
-color:#ffb000;
 font-size:28px;
 font-weight:bold;
+color:var(--amber);
 }
 
 .clock{
-color:#ffb000;
-font-size:22px;
+font-size:18px;
+color:var(--amber);
 }
 
-.grid{
+.ribbon{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:8px;
+margin-bottom:10px;
+}
+
+.ticker{
+background:var(--panel);
+border:1px solid var(--border);
+padding:12px;
+text-align:center;
+}
+
+.ticker-title{
+color:var(--amber);
+font-size:12px;
+}
+
+.ticker-value{
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.main{
 display:grid;
 grid-template-columns:1fr 2fr 1fr;
 gap:10px;
-padding:10px;
 }
 
 .panel{
-background:#111;
-border:1px solid #333;
+background:var(--panel);
+border:1px solid var(--border);
 padding:10px;
-border-radius:6px;
+border-radius:4px;
 }
 
 .panel h2{
-color:#ffb000;
-margin-top:0;
+color:var(--amber);
+margin-bottom:10px;
+font-size:18px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+td{
+padding:8px;
+border-bottom:1px solid #222;
 }
 
 .btn{
 display:block;
-background:#222;
 padding:10px;
-margin:5px 0;
-color:white;
+background:#1c1c1c;
+margin-bottom:8px;
 text-decoration:none;
+color:white;
 border-radius:4px;
 }
 
@@ -68,70 +122,101 @@ background:#333;
 
 textarea{
 width:100%;
-height:200px;
+height:220px;
 background:#000;
-color:white;
+color:#fff;
 border:1px solid #333;
+padding:10px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+.checklist label{
+display:block;
+margin-bottom:10px;
 }
 
-td,th{
-padding:8px;
-border-bottom:1px solid #222;
+@media(max-width:1200px){
+.main{
+grid-template-columns:1fr;
 }
-
-.green{
-color:#00ff66;
+.ribbon{
+grid-template-columns:repeat(2,1fr);
 }
-
-.red{
-color:#ff4444;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="header">
-
-<div class="logo">
-CPP COMMAND CENTER
+<div class="logo">ASH ENERGY TERMINAL</div>
+<div class="clock" id="clock"></div>
 </div>
 
-<div class="clock" id="clock">
-Loading...
+<div class="ribbon">
+
+<div class="ticker">
+<div class="ticker-title">BRENT</div>
+<div class="ticker-value">LIVE</div>
+</div>
+
+<div class="ticker">
+<div class="ticker-title">WTI</div>
+<div class="ticker-value">LIVE</div>
+</div>
+
+<div class="ticker">
+<div class="ticker-title">DXY</div>
+<div class="ticker-value">LIVE</div>
+</div>
+
+<div class="ticker">
+<div class="ticker-title">USD/SGD</div>
+<div class="ticker-value">LIVE</div>
+</div>
+
+<div class="ticker">
+<div class="ticker-title">VLSFO</div>
+<div class="ticker-value">UPDATE</div>
+</div>
+
+<div class="ticker">
+<div class="ticker-title">SIGNAL</div>
+<div class="ticker-value">READY</div>
 </div>
 
 </div>
 
-<div class="grid">
+<div class="main">
 
 <div class="panel">
 
-<h2>CPP FREIGHT</h2>
+<h2>CPP FREIGHT BOARD</h2>
 
 <table>
+<tr><td>TC1</td><td></td></tr>
+<tr><td>TC5</td><td></td></tr>
+<tr><td>TC20</td><td></td></tr>
+<tr><td>TC12</td><td></td></tr>
+<tr><td>TC14</td><td></td></tr>
+<tr><td>TC17</td><td></td></tr>
+</table>
 
-<tr><td>TC1</td><td>505</td></tr>
-<tr><td>TC5</td><td>522</td></tr>
-<tr><td>TC20</td><td>79</td></tr>
-<tr><td>TC12</td><td>48</td></tr>
-<tr><td>TC14</td><td>42</td></tr>
-<tr><td>TC17</td><td>53</td></tr>
+<br>
 
+<h2>DIRTY FREIGHT</h2>
+
+<table>
+<tr><td>TD3C</td><td></td></tr>
+<tr><td>TD20</td><td></td></tr>
+<tr><td>TD22</td><td></td></tr>
 </table>
 
 </div>
 
 <div class="panel">
 
-<h2>BRENT LIVE CHART</h2>
+<h2>BRENT CHART</h2>
 
 <div class="tradingview-widget-container">
 <div id="tradingview_chart"></div>
@@ -141,43 +226,42 @@ Loading...
 
 <div class="panel">
 
-<h2>QUICK LINKS</h2>
+<h2>QUICK LAUNCH</h2>
 
-<a class="btn" target="_blank" href="https://app.signalocean.com">
-Signal Ocean
-</a>
+<a class="btn" href="https://app.signalocean.com" target="_blank">Signal Ocean</a>
 
-<a class="btn" target="_blank" href="https://www.wsj.com">
-WSJ
-</a>
+<a class="btn" href="https://www.wsj.com" target="_blank">WSJ</a>
 
-<a class="btn" target="_blank" href="https://www.barrons.com">
-Barron's
-</a>
+<a class="btn" href="https://www.barrons.com" target="_blank">Barron's</a>
 
-<a class="btn" target="_blank" href="https://www.marketwatch.com">
-MarketWatch
-</a>
+<a class="btn" href="https://www.marketwatch.com" target="_blank">MarketWatch</a>
 
-<a class="btn" target="_blank" href="https://shipandbunker.com">
-Ship & Bunker
-</a>
+<a class="btn" href="https://shipandbunker.com" target="_blank">Ship & Bunker</a>
+
+<a class="btn" href="https://www.opec.org" target="_blank">OPEC</a>
+
+<a class="btn" href="https://www.eia.gov" target="_blank">EIA</a>
+
+<br>
+
+<h2>CHECKLIST</h2>
+
+<div class="checklist">
+
+<label><input type="checkbox"> Brent > 2%</label>
+<label><input type="checkbox"> EFS Move</label>
+<label><input type="checkbox"> TC5 Change</label>
+<label><input type="checkbox"> TD3C Change</label>
+<label><input type="checkbox"> Hormuz Update</label>
+<label><input type="checkbox"> Refinery Outage</label>
+
+</div>
 
 </div>
 
-<div class="panel">
-
-<h2>DIRTY FREIGHT</h2>
-
-<table>
-
-<tr><td>TD3C</td><td>295</td></tr>
-<tr><td>TD20</td><td>233</td></tr>
-<tr><td>TD22</td><td>20416</td></tr>
-
-</table>
-
 </div>
+
+<br>
 
 <div class="panel">
 
@@ -187,53 +271,28 @@ Ship & Bunker
 
 </div>
 
-<div class="panel">
-
-<h2>MORNING CHECKLIST</h2>
-
-<input type="checkbox"> Brent > 2%<br><br>
-<input type="checkbox"> EFS Move<br><br>
-<input type="checkbox"> TC5 Move<br><br>
-<input type="checkbox"> TD3C Move<br><br>
-<input type="checkbox"> Hormuz Update<br><br>
-<input type="checkbox"> Refinery Outage<br><br>
-
-</div>
-
-</div>
-
 <script>
 
 function updateClock(){
-
-const options={
-timeZone:"Asia/Singapore"
-};
-
-const now=new Date().toLocaleString(
-"en-SG",
-options
+const now = new Date().toLocaleString(
+'en-SG',
+{timeZone:'Asia/Singapore'}
 );
-
-document.getElementById("clock").innerHTML=now;
-
+document.getElementById('clock').innerHTML = now;
 }
 
 setInterval(updateClock,1000);
-
 updateClock();
 
-const notes=document.getElementById("notes");
+const notes=document.getElementById('notes');
 
-notes.value=localStorage.getItem("brokerNotes")||"";
+notes.value=localStorage.getItem('brokerNotes') || '';
 
-notes.addEventListener("keyup",()=>{
-
+notes.addEventListener('keyup',()=>{
 localStorage.setItem(
-"brokerNotes",
+'brokerNotes',
 notes.value
 );
-
 });
 
 </script>
@@ -243,9 +302,8 @@ notes.value
 <script>
 
 new TradingView.widget({
-
 width:"100%",
-height:500,
+height:650,
 symbol:"ICEEUR:BRN1!",
 interval:"240",
 timezone:"Asia/Singapore",
@@ -253,7 +311,6 @@ theme:"dark",
 style:"1",
 locale:"en",
 container_id:"tradingview_chart"
-
 });
 
 </script>
