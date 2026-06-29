@@ -9,138 +9,171 @@
 <style>
 
 :root{
---bg:#000000;
---panel:#111111;
---border:#2b2b2b;
---amber:#ffb000;
---green:#00ff66;
---red:#ff4444;
---white:#ffffff;
+    --bg:#000000;
+    --panel:#111111;
+    --border:#2d2d2d;
+    --amber:#FFB000;
+    --white:#FFFFFF;
+    --green:#00FF66;
+    --red:#FF4444;
 }
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Helvetica,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-background:var(--bg);
-color:var(--white);
-padding:10px;
+    background:var(--bg);
+    color:var(--white);
+    padding:12px;
 }
 
 .header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
-background:#050505;
-border:1px solid var(--amber);
-margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid var(--amber);
+    padding:15px;
+    margin-bottom:12px;
+    background:#050505;
 }
 
 .logo{
-font-size:28px;
-font-weight:bold;
-color:var(--amber);
+    font-size:28px;
+    font-weight:bold;
+    color:var(--amber);
 }
 
 .clock{
-font-size:18px;
-color:var(--amber);
+    color:var(--amber);
+    font-size:18px;
 }
 
 .ribbon{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:8px;
-margin-bottom:10px;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin-bottom:12px;
 }
 
-.ticker{
-background:var(--panel);
-border:1px solid var(--border);
-padding:12px;
-text-align:center;
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:12px;
 }
 
-.ticker-title{
-color:var(--amber);
-font-size:12px;
+.card-title{
+    color:var(--amber);
+    font-size:12px;
+    margin-bottom:8px;
 }
 
-.ticker-value{
-font-size:20px;
-font-weight:bold;
-margin-top:5px;
+.card-value{
+    font-size:22px;
+    font-weight:bold;
+    outline:none;
 }
 
 .main{
-display:grid;
-grid-template-columns:1fr 2fr 1fr;
-gap:10px;
+    display:grid;
+    grid-template-columns:300px 1fr 320px;
+    gap:12px;
 }
 
 .panel{
-background:var(--panel);
-border:1px solid var(--border);
-padding:10px;
-border-radius:4px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:15px;
 }
 
 .panel h2{
-color:var(--amber);
-margin-bottom:10px;
-font-size:18px;
+    color:var(--amber);
+    margin-bottom:15px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+.freight-table{
+    width:100%;
+    border-collapse:collapse;
 }
 
-td{
-padding:8px;
-border-bottom:1px solid #222;
+.freight-table td{
+    padding:10px;
+    border-bottom:1px solid #222;
+}
+
+.editable{
+    text-align:right;
+    outline:none;
+    font-weight:bold;
+}
+
+.notes{
+    width:100%;
+    height:600px;
+    background:#050505;
+    color:white;
+    border:1px solid #333;
+    padding:12px;
+    resize:vertical;
 }
 
 .btn{
-display:block;
-padding:10px;
-background:#1c1c1c;
-margin-bottom:8px;
-text-decoration:none;
-color:white;
-border-radius:4px;
+    width:100%;
+    display:block;
+    text-decoration:none;
+    color:white;
+    background:#1a1a1a;
+    border:1px solid var(--amber);
+    padding:12px;
+    margin-bottom:10px;
+    transition:0.2s;
 }
 
 .btn:hover{
-background:#333;
+    background:#2a2a2a;
 }
 
-textarea{
-width:100%;
-height:220px;
-background:#000;
-color:#fff;
-border:1px solid #333;
-padding:10px;
+.small-btn{
+    width:100%;
+    padding:10px;
+    background:#1a1a1a;
+    color:white;
+    border:1px solid #444;
+    cursor:pointer;
+    margin-top:10px;
 }
 
-.checklist label{
-display:block;
-margin-bottom:10px;
+.footer{
+    margin-top:15px;
+    text-align:center;
+    color:#999;
+    border-top:1px solid #222;
+    padding-top:12px;
+}
+
+.timestamp{
+    color:#999;
+    font-size:12px;
+    margin-top:10px;
 }
 
 @media(max-width:1200px){
-.main{
-grid-template-columns:1fr;
-}
+
 .ribbon{
 grid-template-columns:repeat(2,1fr);
 }
+
+.main{
+grid-template-columns:1fr;
+}
+
+.notes{
+height:350px;
+}
+
 }
 
 </style>
@@ -149,216 +182,275 @@ grid-template-columns:repeat(2,1fr);
 <body>
 
 <div class="header">
-<div class="logo">ASH ENERGY TERMINAL</div>
-<div class="clock" id="clock"></div>
+    <div class="logo">ASH ENERGY TERMINAL</div>
+    <div class="clock" id="clock"></div>
 </div>
 
 <div class="ribbon">
 
-<div class="ticker">
-<div class="ticker-title">BRENT</div>
-<div class="ticker-value" contenteditable="true">84.50</div>
-</div>
+    <div class="card">
+        <div class="card-title">WTI</div>
+        <div class="card-value" contenteditable="true" data-key="WTI">81.45</div>
+    </div>
 
-<div class="ticker">
-<div class="ticker-title">WTI</div>
-<div class="ticker-value" contenteditable="true">81.20</div>
-</div>
+    <div class="card">
+        <div class="card-title">BRENT</div>
+        <div class="card-value" contenteditable="true" data-key="BRENT">84.32</div>
+    </div>
 
-<div class="ticker">
-<div class="ticker-title">DXY</div>
-<div class="ticker-value" contenteditable="true">99.85</div>
-</div>
+    <div class="card">
+        <div class="card-title">SINGAPORE MGO</div>
+        <div class="card-value" contenteditable="true" data-key="SGMGO">712</div>
+    </div>
 
-<div class="ticker">
-<div class="ticker-title">USD/SGD</div>
-<div class="ticker-value" contenteditable="true">1.3480</div>
-</div>
+    <div class="card">
+        <div class="card-title">SINGAPORE VLSFO</div>
+        <div class="card-value" contenteditable="true" data-key="SGVLSFO">558</div>
+    </div>
 
-<div class="ticker">
-<div class="ticker-title">VLSFO SG</div>
-<div class="ticker-value" contenteditable="true">575</div>
-</div>
+    <div class="card">
+        <div class="card-title">FUJAIRAH MGO</div>
+        <div class="card-value" contenteditable="true" data-key="FUJMGO">695</div>
+    </div>
 
-<div class="ticker">
-<div class="ticker-title">TC5</div>
-<div class="ticker-value" contenteditable="true">522</div>
-</div>
+    <div class="card">
+        <div class="card-title">FUJAIRAH VLSFO</div>
+        <div class="card-value" contenteditable="true" data-key="FUJVLSFO">545</div>
+    </div>
 
 </div>
 
 <div class="main">
 
-<div class="panel">
+    <div class="panel">
 
-<h2>CPP FREIGHT BOARD</h2>
+        <h2>CPP FREIGHT</h2>
 
-<table>
-<tr><td>TC1</td><td></td></tr>
-<tr><td>TC5</td><td></td></tr>
-<tr><td>TC20</td><td></td></tr>
-<tr><td>TC12</td><td></td></tr>
-<tr><td>TC14</td><td></td></tr>
-<tr><td>TC17</td><td></td></tr>
-</table>
+        <table class="freight-table">
 
-<br>
+            <tr>
+                <td>TC1</td>
+                <td contenteditable="true" class="editable" data-key="TC1">505</td>
+            </tr>
 
-<h2>DIRTY FREIGHT</h2>
+            <tr>
+                <td>TC5</td>
+                <td contenteditable="true" class="editable" data-key="TC5">522</td>
+            </tr>
 
-<table>
-<tr><td>TD3C</td><td></td></tr>
-<tr><td>TD20</td><td></td></tr>
-<tr><td>TD22</td><td></td></tr>
-</table>
+            <tr>
+                <td>TC12</td>
+                <td contenteditable="true" class="editable" data-key="TC12">48</td>
+            </tr>
 
-</div>
+            <tr>
+                <td>TC17</td>
+                <td contenteditable="true" class="editable" data-key="TC17">53</td>
+            </tr>
 
-<div class="panel">
+        </table>
 
-<h2>BRENT CHART</h2>
+        <button class="small-btn" onclick="resetFreight()">
+            Reset Freight Board
+        </button>
 
-<h2>LIVE OIL MARKETS</h2>
+        <button class="small-btn" onclick="resetPrices()">
+            Reset Price Board
+        </button>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    </div>
 
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-{
-"autosize": true,
-"symbol": "ICEEUR:BRN1!",
-"interval": "240",
-"timezone": "Asia/Singapore",
-"theme": "dark",
-"style": "1",
-"locale": "en",
-"hide_top_toolbar": false,
-"hide_legend": false,
-"allow_symbol_change": true
-}
-</script>
-</div>
+    <div class="panel">
 
-<div class="tradingview-widget-container">
-<div class="tradingview-widget-container__widget"></div>
-<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-{
-"autosize": true,
-"symbol": "NYMEX:CL1!",
-"interval": "240",
-"timezone": "Asia/Singapore",
-"theme": "dark",
-"style": "1",
-"locale": "en",
-"hide_top_toolbar": false,
-"hide_legend": false,
-"allow_symbol_change": true
-}
-</script>
-</div>
+        <h2>BROKER NOTES</h2>
 
-</div>
+        <textarea id="notes" class="notes"
+        placeholder="Morning market notes, cargo ideas, charterer updates, freight commentary..."></textarea>
 
-</div>
+        <button class="small-btn" onclick="clearNotes()">
+            Clear Notes
+        </button>
 
-<div class="panel">
+        <div class="timestamp" id="lastUpdated">
+            Last Updated: Never
+        </div>
 
-<h2>QUICK LAUNCH</h2>
+    </div>
 
-<a class="btn" href="https://app.signalocean.com" target="_blank">Signal Ocean</a>
+    <div class="panel">
 
-<a class="btn" href="https://www.wsj.com" target="_blank">WSJ</a>
+        <h2>QUICK LAUNCH</h2>
 
-<a class="btn" href="https://www.barrons.com" target="_blank">Barron's</a>
+        <a class="btn" target="_blank"
+        href="https://www.cnbc.com/futures-and-commodities/">
+        CNBC Futures & Commodities
+        </a>
 
-<a class="btn" href="https://www.marketwatch.com" target="_blank">MarketWatch</a>
+        <a class="btn" target="_blank"
+        href="https://www.wsj.com">
+        WSJ
+        </a>
 
-<a class="btn" href="https://shipandbunker.com" target="_blank">Ship & Bunker</a>
+        <a class="btn" target="_blank"
+        href="https://www.barrons.com">
+        Barron's
+        </a>
 
-<a class="btn" href="https://www.opec.org" target="_blank">OPEC</a>
+        <a class="btn" target="_blank"
+        href="https://www.marketwatch.com">
+        MarketWatch
+        </a>
 
-<a class="btn" href="https://www.eia.gov" target="_blank">EIA</a>
+        <a class="btn" target="_blank"
+        href="https://www.interactivebrokers.com">
+        Interactive Brokers
+        </a>
 
-<br>
+        <a class="btn" target="_blank"
+        href="https://app.signalocean.com">
+        Signal Ocean
+        </a>
 
-
-<h2>MARKET LINKS</h2>
-
-<a class="btn" target="_blank"
-href="https://www.tradingview.com/symbols/ICEEUR-BRN1!/">
-Brent
-</a>
-
-<a class="btn" target="_blank"
-href="https://www.tradingview.com/symbols/NYMEX-CL1!/">
-WTI
-</a>
-
-<a class="btn" target="_blank"
-href="https://www.tradingview.com/symbols/TVC-DXY/">
-DXY
-</a>
-
-<a class="btn" target="_blank"
-href="https://www.tradingview.com/symbols/FX_IDC-USDSGD/">
-USD/SGD
-</a>
-  
-
-<h2>CHECKLIST</h2>
-
-<div class="checklist">
-
-<label><input type="checkbox"> Brent > 2%</label>
-<label><input type="checkbox"> EFS Move</label>
-<label><input type="checkbox"> TC5 Change</label>
-<label><input type="checkbox"> TD3C Change</label>
-<label><input type="checkbox"> Hormuz Update</label>
-<label><input type="checkbox"> Refinery Outage</label>
+    </div>
 
 </div>
 
-</div>
+<div class="footer">
 
-</div>
+    <div>ASH ENERGY TERMINAL v2.0</div>
 
-<br>
-
-<div class="panel">
-
-<h2>BROKER NOTES</h2>
-
-<textarea id="notes"></textarea>
+    <div>Personal Trading & Shipping Dashboard</div>
 
 </div>
 
 <script>
 
 function updateClock(){
+
 const now = new Date().toLocaleString(
 'en-SG',
-{timeZone:'Asia/Singapore'}
-);
-document.getElementById('clock').innerHTML = now;
+{
+timeZone:'Asia/Singapore'
+});
+
+document.getElementById('clock').innerText = now;
+
 }
 
 setInterval(updateClock,1000);
 updateClock();
 
+function saveField(el){
+
+localStorage.setItem(
+el.dataset.key,
+el.innerText
+);
+
+updateTimestamp();
+
+}
+
+document.querySelectorAll('[contenteditable="true"]').forEach(el=>{
+
+const saved = localStorage.getItem(el.dataset.key);
+
+if(saved){
+el.innerText = saved;
+}
+
+el.addEventListener('input',()=>saveField(el));
+
+});
+
 const notes=document.getElementById('notes');
 
-notes.value=localStorage.getItem('brokerNotes') || '';
+notes.value = localStorage.getItem('brokerNotes') || '';
 
-notes.addEventListener('keyup',()=>{
+notes.addEventListener('input',()=>{
+
 localStorage.setItem(
 'brokerNotes',
 notes.value
 );
+
+updateTimestamp();
+
 });
 
-</script>
+function clearNotes(){
 
+if(confirm('Clear notes?')){
+
+notes.value='';
+
+localStorage.removeItem('brokerNotes');
+
+updateTimestamp();
+
+}
+
+}
+
+function resetFreight(){
+
+['TC1','TC5','TC12','TC17'].forEach(k=>{
+
+localStorage.removeItem(k);
+
+});
+
+location.reload();
+
+}
+
+function resetPrices(){
+
+[
+'WTI',
+'BRENT',
+'SGMGO',
+'SGVLSFO',
+'FUJMGO',
+'FUJVLSFO'
+].forEach(k=>{
+
+localStorage.removeItem(k);
+
+});
+
+location.reload();
+
+}
+
+function updateTimestamp(){
+
+const now = new Date().toLocaleString(
+'en-SG',
+{
+timeZone:'Asia/Singapore'
+});
+
+document.getElementById('lastUpdated').innerText =
+'Last Updated: ' + now;
+
+localStorage.setItem(
+'lastUpdated',
+now
+);
+
+}
+
+const savedTime = localStorage.getItem('lastUpdated');
+
+if(savedTime){
+
+document.getElementById('lastUpdated').innerText =
+'Last Updated: ' + savedTime;
+
+}
+
+</script>
 
 </body>
 </html>
